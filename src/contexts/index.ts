@@ -2,10 +2,13 @@ import { createContext, type Dispatch } from 'react';
 import { AbiReceivedAction, ChainIdReceivedAction } from './actions';
 import { InterfaceAbi } from 'ethers';
 
-interface ContractData {
-  abi: InterfaceAbi;
-  name: string;
-}
+export type ContractData =
+  | {
+      abi: InterfaceAbi;
+      name: string;
+      abiFound: true;
+    }
+  | { abiFound: false };
 
 export interface OnChainDataState {
   rpcChainIds: Record<string, number>;

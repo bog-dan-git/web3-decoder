@@ -4,9 +4,9 @@ import {
   JsonRpcRequest,
   JsonRpcResponse,
 } from '../interfaces';
-import { OnChainDataState } from '../contexts';
+import { ContractData, OnChainDataState } from '../contexts';
 import { Interface, Result } from 'ethers';
-import { client, ContractData } from '../client';
+import { client } from '../client';
 import { isFulfilled } from '../common';
 import { Web3 } from 'web3';
 
@@ -28,12 +28,13 @@ export const isEthBlockNumber = (request: JsonRpcRequest) => {
 
 export interface EthCallInfo {
   swissknifeUrl: string;
-  name: string;
-  functionName: string;
-  functionArgs: string;
-  functionCall: string;
-  functionResult: string;
-  contractAddress: string;
+  abiFound: boolean;
+  name?: string;
+  functionName?: string;
+  functionArgs?: string;
+  functionCall?: string;
+  functionResult?: string;
+  contractAddress?: string;
 }
 
 type Args = Array<string | Args>;
@@ -43,15 +44,8 @@ export const getCallInfo = (
   request: EthCallRequest,
   response: JsonRpcResponse,
 ) => {
-  if (!contractData) {
-    return {
-      name: 'Not found',
-      functionName: 'Not found',
-      functionArgs: 'Not found',
-      contractAddress: 'Not found',
-      functionCall: 'Not found',
-      functionResult: 'Not found',
-    };
+  if (!contractData || !contractData.abiFound) {
+    return;
   }
 
   const { abi, name } = contractData;
@@ -110,20 +104,23 @@ export const getEthCallInfo = (
   response: JsonRpcResponse,
   chainId: number,
 ): EthCallInfo => {
+  const swissknifeUrl = buildSwissKnifeUrl(
+    request.params[0].data,
+    request.params[0].to,
+    chainId,
+  );
+
   const callInfo = getCallInfo(contractData, request, response);
 
   return {
-    swissknifeUrl: buildSwissKnifeUrl(
-      request.params[0].data,
-      request.params[0].to,
-      chainId,
-    ),
-    name: callInfo.name,
-    functionName: callInfo.functionName,
-    functionArgs: callInfo.functionArgs,
-    functionCall: callInfo.functionCall!,
-    functionResult: callInfo.functionResult!,
-    contractAddress: callInfo.contractAddress!,
+    swissknifeUrl,
+    abiFound: contractData.abiFound,
+    name: callInfo?.name,
+    functionName: callInfo?.functionName,
+    functionArgs: callInfo?.functionArgs,
+    functionCall: callInfo?.functionCall,
+    functionResult: callInfo?.functionResult,
+    contractAddress: callInfo?.contractAddress,
   };
 };
 

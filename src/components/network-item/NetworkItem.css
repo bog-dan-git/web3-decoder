@@ -24,7 +24,11 @@
     margin: 10px 0;
 }
 
-.eth-call-details {
+.request-details__item__title {
+    margin-top: 10px;
+}
+
+.request-details__item__content {
     padding-left: 40px;
 }
 

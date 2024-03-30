@@ -16,6 +16,7 @@ export interface AbiReceivedAction {
     address: string;
     abi: InterfaceAbi;
     name: string;
+    abiFound: boolean;
   };
 }
 
@@ -37,14 +38,14 @@ export const handleAbiReceived = (
   state: OnChainDataState,
   action: AbiReceivedAction,
 ): OnChainDataState => {
-  const { chainId, address, abi, name } = action.payload;
+  const { chainId, address, abi, name, abiFound } = action.payload;
   return {
     ...state,
     contractData: {
       ...state.contractData,
       [chainId]: {
         ...state.contractData[chainId],
-        [address]: { abi, name },
+        [address]: { abi, name, abiFound },
       },
     },
   };

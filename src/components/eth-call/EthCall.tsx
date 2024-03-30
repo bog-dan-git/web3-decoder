@@ -1,10 +1,11 @@
-import ExpandableSection from '../expandable-section/ExpandableSection';
 import { FC, useEffect, useState } from 'react';
 
-import './EthCall.css';
+import ExpandableSection from '../expandable-section/ExpandableSection';
 import { EthCallRequest, JsonRpcResponse } from '../../interfaces';
 import { EthCallInfo, getEthCallInfo } from '../../services';
-import { ContractData } from '../../client';
+import { ContractData } from '../../contexts';
+
+import './EthCall.css';
 
 interface Props {
   contractData: ContractData;
@@ -45,32 +46,37 @@ const EthCall: FC<Props> = (props) => {
         </a>
       </div>
       <div>Contract address: {callInfo.contractAddress}</div>
-      <div>Contract Name: {callInfo.name}</div>
-      <div className="expandable-wrapper">
-        <span>Function call: </span>
-        {callInfo.functionCall && (
-          <ExpandableSection
-            content={callInfo.functionCall}
-          ></ExpandableSection>
-        )}
-      </div>
-      <div>Function Name: {callInfo.functionName}</div>
-      <div className="expandable-wrapper">
-        <span>Function Args: </span>
-        {callInfo.functionArgs && (
-          <ExpandableSection
-            content={callInfo.functionArgs}
-          ></ExpandableSection>
-        )}
-      </div>
-      <div className="expandable-wrapper">
-        <span>Function Result: </span>
-        {callInfo.functionResult && (
-          <ExpandableSection
-            content={callInfo.functionResult}
-          ></ExpandableSection>
-        )}
-      </div>
+      {callInfo.abiFound && (
+        <>
+          <div>Contract Name: {callInfo.name}</div>
+          <div>Function Signature: {callInfo.functionName}</div>
+          <div className="expandable-wrapper">
+            <span>Function Call: </span>
+            {callInfo.functionCall && (
+              <ExpandableSection
+                content={callInfo.functionCall}
+              ></ExpandableSection>
+            )}
+          </div>
+          <div className="expandable-wrapper">
+            <span>Function Args: </span>
+            {callInfo.functionArgs && (
+              <ExpandableSection
+                content={callInfo.functionArgs}
+              ></ExpandableSection>
+            )}
+          </div>
+          <div className="expandable-wrapper">
+            <span>Function Result: </span>
+            {callInfo.functionResult && (
+              <ExpandableSection
+                content={callInfo.functionResult}
+              ></ExpandableSection>
+            )}
+          </div>
+        </>
+      )}
+      {!callInfo.abiFound && <div className="abi-error">ABI not found</div>}
     </div>
   );
 };

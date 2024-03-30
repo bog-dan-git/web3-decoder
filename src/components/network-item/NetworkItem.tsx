@@ -39,6 +39,7 @@ const NetworkItem: FC<Props> = ({ url, request, response }) => {
           address: contractData.address,
           abi: contractData.abi,
           name: contractData.name,
+          abiFound: !contractData.error,
         },
       });
     }
@@ -128,13 +129,13 @@ const NetworkItem: FC<Props> = ({ url, request, response }) => {
           {requestDetails.map((x, i) => (
             <div key={i} className="request-details__item">
               <div>
-                <div>
+                <div className="request-details__item__title">
                   <b>
                     [{i}] {x.title}
                   </b>
                 </div>
               </div>
-              <div className="eth-call-details">{x.content}</div>
+              <div className="request-details__item__content">{x.content}</div>
             </div>
           ))}
         </div>

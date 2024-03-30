@@ -1,3 +1,7 @@
 .request-details__link {
     color: #fff;
 }
+
+.abi-error {
+    color: #880000;
+}
