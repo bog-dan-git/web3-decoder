@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "Web3 Decode Extension",
+  "version": "0.1",
+  "description": "Decode web3 transactions",
+  "host_permissions": ["http://*/*", "https://*/*"],
+  "permissions": [
+    "webRequest",
+    "storage",
+    "activeTab"
+  ],
+  "devtools_page": "devtools.html"
+}

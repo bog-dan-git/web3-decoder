@@ -1,0 +1,25 @@
+.request {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.expanded {
+    background: #445156;
+}
+
+.request:hover {
+    background: #313e48;
+}
+
+.request-details {
+    padding-left: 20px;
+}
+
+.eth-call-details {
+    padding-left: 40px;
+}
