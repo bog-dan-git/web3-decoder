@@ -5,11 +5,14 @@ import { OnChainDataContext, OnChainDataDispatchContext } from '../../contexts';
 
 import {
   getChainId,
-  getEthCallInfo,
   getMissingContractAbis,
+  isEthBlockNumber,
   isEthCall,
+  isEthGetBalance,
 } from '../../services';
 import EthCall from '../eth-call/EthCall';
+import EthGetBalance from '../eth-get-balance/EthGetBalance';
+import EthBlockNumber from '../eth-blockNumber/EthBlockNumber';
 
 interface Props {
   url: string;
@@ -67,14 +70,30 @@ const NetworkItem: FC<Props> = ({ url, request, response }) => {
 
   const getRequestDetails = (request: JsonRpcRequest, index: number) => {
     if (isEthCall(request)) {
-      const callInfo = getEthCallInfo(state, request, response[index], chainId);
+      const contractData = state.contractData[chainId]?.[request.params[0].to];
 
       return {
         title: 'eth_call',
-        content: <EthCall {...callInfo} />,
+        content: (
+          <EthCall
+            request={request}
+            response={response[index]}
+            chainId={chainId}
+            contractData={contractData}
+          />
+        ),
+      };
+    } else if (isEthGetBalance(request)) {
+      return {
+        title: 'eth_getBalance',
+        content: <EthGetBalance request={request} response={response[index]} />,
+      };
+    } else if (isEthBlockNumber(request)) {
+      return {
+        title: 'eth_blockNumber',
+        content: <EthBlockNumber response={response[index]} />,
       };
     }
-
     if (request.method === 'eth_chainId') {
       return {
         title: 'eth_chainId',

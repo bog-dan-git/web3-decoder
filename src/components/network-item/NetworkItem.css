@@ -23,3 +23,7 @@
 .eth-call-details {
     padding-left: 40px;
 }
+
+.expandable-wrapper {
+    display: flex;
+}

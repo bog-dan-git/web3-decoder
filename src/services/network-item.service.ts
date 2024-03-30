@@ -1,7 +1,12 @@
-import { EthCallRequest, JsonRpcRequest, JsonRpcResponse } from '../interfaces';
+import {
+  EthCallRequest,
+  EthGetBalanceRequest,
+  JsonRpcRequest,
+  JsonRpcResponse,
+} from '../interfaces';
 import { OnChainDataState } from '../contexts';
 import { Interface, Result } from 'ethers';
-import { client } from '../client';
+import { client, ContractData } from '../client';
 import { isFulfilled } from '../common';
 import { Web3 } from 'web3';
 
@@ -11,20 +16,41 @@ export const isEthCall = (
   return request.method === 'eth_call';
 };
 
+export const isEthGetBalance = (
+  request: JsonRpcRequest,
+): request is EthGetBalanceRequest => {
+  return request.method === 'eth_getBalance';
+};
+
+export const isEthBlockNumber = (request: JsonRpcRequest) => {
+  return request.method === 'eth_blockNumber';
+};
+
+export interface EthCallInfo {
+  swissknifeUrl: string;
+  name: string;
+  functionName: string;
+  functionArgs: string;
+  functionCall: string;
+  functionResult: string;
+  contractAddress: string;
+}
+
 type Args = Array<string | Args>;
 
 export const getCallInfo = (
-  state: OnChainDataState,
+  contractData: ContractData,
   request: EthCallRequest,
-  chainId: number,
+  response: JsonRpcResponse,
 ) => {
-  const contractData = state.contractData[chainId]?.[request.params[0].to];
-
   if (!contractData) {
     return {
       name: 'Not found',
       functionName: 'Not found',
       functionArgs: 'Not found',
+      contractAddress: 'Not found',
+      functionCall: 'Not found',
+      functionResult: 'Not found',
     };
   }
 
@@ -34,9 +60,9 @@ export const getCallInfo = (
   const parsedTransaction = contract.parseTransaction({
     data: request.params[0].data,
   });
-  const parseFunctionArgs = (args: Result): Args =>
+  const parseFunctionArgsToArray = (args: Result): Args =>
     args.map((x: Result | string) =>
-      Array.isArray(x) ? parseFunctionArgs(x as Result) : x.toString(),
+      Array.isArray(x) ? parseFunctionArgsToArray(x as Result) : x.toString(),
     );
   const argsToDisplayParams = (args: Args): string =>
     args
@@ -53,14 +79,19 @@ export const getCallInfo = (
     };
   }
 
-  const parsedArgs = parseFunctionArgs(parsedTransaction.args);
+  const parsedArgs = parseFunctionArgsToArray(parsedTransaction.args);
   const displayParams = argsToDisplayParams(parsedArgs);
+  const decodedFunctionResult = parseFunctionArgsToArray(
+    contract.decodeFunctionResult(parsedTransaction.name, response.result),
+  );
+
   return {
     name,
     functionName: parsedTransaction?.name,
     functionArgs: JSON.stringify(parsedArgs),
     functionCall: `${parsedTransaction?.name}(${displayParams})`,
     contractAddress: request.params[0].to,
+    functionResult: JSON.stringify(decodedFunctionResult),
   };
 };
 
@@ -74,12 +105,12 @@ export const buildSwissKnifeUrl = (
 };
 
 export const getEthCallInfo = (
-  state: OnChainDataState,
+  contractData: ContractData,
   request: EthCallRequest,
   response: JsonRpcResponse,
   chainId: number,
-) => {
-  const callInfo = getCallInfo(state, request, chainId);
+): EthCallInfo => {
+  const callInfo = getCallInfo(contractData, request, response);
 
   return {
     swissknifeUrl: buildSwissKnifeUrl(
@@ -90,7 +121,8 @@ export const getEthCallInfo = (
     name: callInfo.name,
     functionName: callInfo.functionName,
     functionArgs: callInfo.functionArgs,
-    functionCall: callInfo.functionCall,
+    functionCall: callInfo.functionCall!,
+    functionResult: callInfo.functionResult!,
     contractAddress: callInfo.contractAddress!,
   };
 };

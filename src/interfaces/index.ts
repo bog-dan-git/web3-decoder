@@ -1,18 +1,24 @@
 export interface JsonRpcRequest {
-  id: number;
-  jsonrpc: string;
-  method: string;
-  params: unknown[];
+  readonly id: number;
+  readonly jsonrpc: string;
+  readonly method: string;
+  readonly params: readonly unknown[];
 }
 
-type EthCallRequestParams = [{ to: string; data: string }, string];
+type EthCallRequestParams = [
+  { readonly to: string; readonly data: string },
+  string,
+];
 
 export interface EthCallRequest extends JsonRpcRequest {
-  params: EthCallRequestParams;
+  readonly params: EthCallRequestParams;
+}
+export interface EthGetBalanceRequest extends JsonRpcRequest {
+  readonly params: readonly [string, string];
 }
 
 export interface JsonRpcResponse {
-  id: number;
-  jsonrpc: string;
-  result: string;
+  readonly id: number;
+  readonly jsonrpc: string;
+  readonly result: string;
 }
