@@ -17,13 +17,14 @@
 }
 
 .request-details {
-    padding-left: 20px;
+    padding: 10px 20px;
+}
+
+.request-details__item {
+    margin: 10px 0;
 }
 
 .eth-call-details {
     padding-left: 40px;
 }
 
-.expandable-wrapper {
-    display: flex;
-}

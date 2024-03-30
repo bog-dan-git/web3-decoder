@@ -1,5 +1,7 @@
 import { FC, useState } from 'react';
 
+import './ExpandableSection.css';
+
 interface Props {
   content: string;
 }
@@ -10,18 +12,21 @@ const ExpandableSection: FC<Props> = ({ content }) => {
   const isExpandable = content.length > maxLength;
 
   return (
-    <div>
+    <span>
       {isExpandable ? (
-        <div>
+        <span>
           {isExpanded ? content : `${content.slice(0, maxLength)}...`}
-          <button onClick={() => setIsExpanded(!isExpanded)}>
+          <button
+            className="expand-button"
+            onClick={() => setIsExpanded(!isExpanded)}
+          >
             {isExpanded ? 'Show less' : 'Show more'}
           </button>
-        </div>
+        </span>
       ) : (
-        <div>{content}</div>
+        <span>{content}</span>
       )}
-    </div>
+    </span>
   );
 };
 

@@ -120,7 +120,7 @@ const NetworkItem: FC<Props> = ({ url, request, response }) => {
             <div key={x.id}>{x.method}</div>
           ))}
         </div>
-        <div>{url}</div>
+        <div>{new URL(url).origin}</div>
       </div>
       {expanded && (
         <div className="request-details">

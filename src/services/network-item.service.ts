@@ -88,10 +88,10 @@ export const getCallInfo = (
   return {
     name,
     functionName: parsedTransaction?.name,
-    functionArgs: JSON.stringify(parsedArgs),
+    functionArgs: JSON.stringify(parsedArgs, null, 2),
     functionCall: `${parsedTransaction?.name}(${displayParams})`,
     contractAddress: request.params[0].to,
-    functionResult: JSON.stringify(decodedFunctionResult),
+    functionResult: JSON.stringify(decodedFunctionResult, null, 2),
   };
 };
 

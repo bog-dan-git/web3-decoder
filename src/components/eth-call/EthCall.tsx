@@ -1,4 +1,4 @@
-import ExpandableSection from '../ExpandableSection';
+import ExpandableSection from '../expandable-section/ExpandableSection';
 import { FC, useEffect, useState } from 'react';
 
 import './EthCall.css';
@@ -28,25 +28,26 @@ const EthCall: FC<Props> = (props) => {
       setCallInfo(callInfo);
     }, 0);
   }, [props.contractData, props.request, props.response, props.chainId]);
+
   return !callInfo ? (
     <div>Loading...</div>
   ) : (
     <div>
       <div>
-        URL:
+        URL:{' '}
         <a
           className="request-details__link"
           target="_blank"
           href={callInfo.swissknifeUrl}
           rel="noreferrer"
         >
-          Swiss knife
+          Swissknife
         </a>
       </div>
       <div>Contract address: {callInfo.contractAddress}</div>
       <div>Contract Name: {callInfo.name}</div>
       <div className="expandable-wrapper">
-        <div>Function call:</div>
+        <span>Function call: </span>
         {callInfo.functionCall && (
           <ExpandableSection
             content={callInfo.functionCall}
@@ -55,7 +56,7 @@ const EthCall: FC<Props> = (props) => {
       </div>
       <div>Function Name: {callInfo.functionName}</div>
       <div className="expandable-wrapper">
-        <div>Function Args:</div>
+        <span>Function Args: </span>
         {callInfo.functionArgs && (
           <ExpandableSection
             content={callInfo.functionArgs}
@@ -63,7 +64,7 @@ const EthCall: FC<Props> = (props) => {
         )}
       </div>
       <div className="expandable-wrapper">
-        <div>Function Result:</div>
+        <span>Function Result: </span>
         {callInfo.functionResult && (
           <ExpandableSection
             content={callInfo.functionResult}
