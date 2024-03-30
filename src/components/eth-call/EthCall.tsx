@@ -66,7 +66,11 @@ const EthCall: FC<Props> = (props) => {
               ></ExpandableSection>
             )}
           </div>
-          <div className="expandable-wrapper">
+          <div
+            className={
+              'expandable-wrapper' + (callInfo.functionResultOk ? '' : ' error')
+            }
+          >
             <span>Function Result: </span>
             {callInfo.functionResult && (
               <ExpandableSection
@@ -76,9 +80,9 @@ const EthCall: FC<Props> = (props) => {
           </div>
         </>
       )}
-      {!callInfo.abiFound && <div className="abi-error">ABI not found</div>}
+      {!callInfo.abiFound && <div className="error">ABI not found</div>}
       {callInfo.abiFound && !callInfo.decoded && (
-        <div className="abi-error">Unable to decode function call</div>
+        <div className="error">Unable to decode function call</div>
       )}
     </div>
   );

@@ -21,4 +21,5 @@ export interface JsonRpcResponse {
   readonly id: number;
   readonly jsonrpc: string;
   readonly result: string;
+  readonly error?: { readonly code: number; readonly message: string };
 }
