@@ -4,6 +4,7 @@ export interface GetContractAbiResponse {
   abi: InterfaceAbi;
   name: string;
   error?: string;
+  code?: number;
 }
 
 const getContractAbi = (chainId: number, address: string) => {

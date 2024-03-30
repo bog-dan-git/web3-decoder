@@ -39,7 +39,7 @@ const NetworkItem: FC<Props> = ({ url, request, response }) => {
           address: contractData.address,
           abi: contractData.abi,
           name: contractData.name,
-          abiFound: !contractData.error,
+          abiFound: !contractData.error && contractData.code !== 400,
         },
       });
     }
