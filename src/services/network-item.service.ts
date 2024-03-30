@@ -5,7 +5,7 @@ import {
   JsonRpcResponse,
 } from '../interfaces';
 import { ContractData, OnChainDataState } from '../contexts';
-import { Interface, Result } from 'ethers';
+import { Interface, Result, TransactionDescription } from 'ethers';
 import { client } from '../client';
 import { isFulfilled } from '../common';
 import { Web3 } from 'web3';
@@ -30,7 +30,7 @@ export interface EthCallInfo {
   swissknifeUrl: string;
   abiFound: boolean;
   name?: string;
-  functionName?: string;
+  functionSignature?: string;
   functionArgs?: string;
   functionCall?: string;
   functionResult?: string;
@@ -51,19 +51,31 @@ export const getCallInfo = (
   const { abi, name } = contractData;
 
   const contract = new Interface(abi);
+
   const parsedTransaction = contract.parseTransaction({
     data: request.params[0].data,
   });
+
   const parseFunctionArgsToArray = (args: Result): Args =>
     args.map((x: Result | string) =>
       Array.isArray(x) ? parseFunctionArgsToArray(x as Result) : x.toString(),
     );
+
   const argsToDisplayParams = (args: Args): string =>
     args
       .map((x) =>
         Array.isArray(x) ? `[${argsToDisplayParams(x)}]` : x.toString(),
       )
       .join(', ');
+
+  const getFunctionSignature = (
+    transactionDescription: TransactionDescription,
+  ) =>
+    `${transactionDescription.name}(${transactionDescription.fragment.inputs
+      .map((x) => x.format('full'))
+      .join(
+        ', ',
+      )}) external returns (${transactionDescription.fragment.outputs.map((x) => x.format('full')).join(', ')})`;
 
   if (!parsedTransaction) {
     return {
@@ -78,10 +90,11 @@ export const getCallInfo = (
   const decodedFunctionResult = parseFunctionArgsToArray(
     contract.decodeFunctionResult(parsedTransaction.name, response.result),
   );
+  const functionSignature = getFunctionSignature(parsedTransaction);
 
   return {
     name,
-    functionName: parsedTransaction?.name,
+    functionSignature,
     functionArgs: JSON.stringify(parsedArgs, null, 2),
     functionCall: `${parsedTransaction?.name}(${displayParams})`,
     contractAddress: request.params[0].to,
@@ -116,7 +129,7 @@ export const getEthCallInfo = (
     swissknifeUrl,
     abiFound: contractData.abiFound,
     name: callInfo?.name,
-    functionName: callInfo?.functionName,
+    functionSignature: callInfo?.functionSignature,
     functionArgs: callInfo?.functionArgs,
     functionCall: callInfo?.functionCall,
     functionResult: callInfo?.functionResult,

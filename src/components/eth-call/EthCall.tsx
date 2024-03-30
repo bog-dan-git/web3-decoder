@@ -49,7 +49,7 @@ const EthCall: FC<Props> = (props) => {
       {callInfo.abiFound && (
         <>
           <div>Contract Name: {callInfo.name}</div>
-          <div>Function Signature: {callInfo.functionName}</div>
+          <div>Function Signature: {callInfo.functionSignature}</div>
           <div className="expandable-wrapper">
             <span>Function Call: </span>
             {callInfo.functionCall && (
