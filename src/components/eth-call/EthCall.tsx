@@ -46,7 +46,7 @@ const EthCall: FC<Props> = (props) => {
         </a>
       </div>
       <div>Contract address: {callInfo.contractAddress}</div>
-      {callInfo.abiFound && (
+      {callInfo.abiFound && callInfo.decoded && (
         <>
           <div>Contract Name: {callInfo.name}</div>
           <div>Function Signature: {callInfo.functionSignature}</div>
@@ -77,6 +77,9 @@ const EthCall: FC<Props> = (props) => {
         </>
       )}
       {!callInfo.abiFound && <div className="abi-error">ABI not found</div>}
+      {callInfo.abiFound && !callInfo.decoded && (
+        <div className="abi-error">Unable to decode function call</div>
+      )}
     </div>
   );
 };

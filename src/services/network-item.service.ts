@@ -29,12 +29,13 @@ export const isEthBlockNumber = (request: JsonRpcRequest) => {
 export interface EthCallInfo {
   swissknifeUrl: string;
   abiFound: boolean;
+  decoded: boolean;
+  contractAddress: string;
   name?: string;
   functionSignature?: string;
   functionArgs?: string;
   functionCall?: string;
   functionResult?: string;
-  contractAddress?: string;
 }
 
 type Args = Array<string | Args>;
@@ -45,7 +46,7 @@ export const getCallInfo = (
   response: JsonRpcResponse,
 ) => {
   if (!contractData || !contractData.abiFound) {
-    return;
+    return { decoded: false };
   }
 
   const { abi, name } = contractData;
@@ -79,9 +80,8 @@ export const getCallInfo = (
 
   if (!parsedTransaction) {
     return {
-      name: 'Not found',
-      functionName: 'Not found',
-      functionArgs: 'Not found',
+      abiFound: true,
+      decoded: false,
     };
   }
 
@@ -97,8 +97,8 @@ export const getCallInfo = (
     functionSignature,
     functionArgs: JSON.stringify(parsedArgs, null, 2),
     functionCall: `${parsedTransaction?.name}(${displayParams})`,
-    contractAddress: request.params[0].to,
     functionResult: JSON.stringify(decodedFunctionResult, null, 2),
+    decoded: true,
   };
 };
 
@@ -117,11 +117,9 @@ export const getEthCallInfo = (
   response: JsonRpcResponse,
   chainId: number,
 ): EthCallInfo => {
-  const swissknifeUrl = buildSwissKnifeUrl(
-    request.params[0].data,
-    request.params[0].to,
-    chainId,
-  );
+  const { data, to } = request.params[0];
+
+  const swissknifeUrl = buildSwissKnifeUrl(data, to, chainId);
 
   const callInfo = getCallInfo(contractData, request, response);
 
@@ -133,7 +131,8 @@ export const getEthCallInfo = (
     functionArgs: callInfo?.functionArgs,
     functionCall: callInfo?.functionCall,
     functionResult: callInfo?.functionResult,
-    contractAddress: callInfo?.contractAddress,
+    contractAddress: to,
+    decoded: callInfo.decoded,
   };
 };
 
