@@ -1,8 +1,8 @@
 {
-  "name": "web3-decode-extension",
+  "name": "web3-decoder",
   "version": "0.0.1",
   "description": "This is a simple extension that decodes web3 transactions",
-  "repository": "https://github.com/bog-dan-git/web3-decode-extension",
+  "repository": "https://github.com/bog-dan-git/web3-decoder",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
