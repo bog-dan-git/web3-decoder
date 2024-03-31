@@ -28,14 +28,13 @@ It kind of looks like this
 - 🌐 **Cross-Browser Compatibility:** Rewrite extension using Web Extensions API for broader browser support.
 - ⚡ **Performance Optimizations:** Speed up data processing and rendering for faster analysis.
 - 💼 **Implement Wallet Injection:** Track wallet-related Web3 calls for comprehensive monitoring.
-- 📈 **Expand Tracking Capabilities:** Include eth_sendTransaction, eth_estimateGas, and more for detailed insights.
-- 🔒 **Ensure Security:** Safeguard sensitive wallet data with robust security measures.
+- 📈 **Expand Tracking Capabilities:** Include eth_sendTransaction, eth_estimateGas, and more for detailed insights
+- 🧪 **Add Tests:** Help ensure the stability and reliability of the extension by adding tests. Cover critical functionalities with unit tests and integration tests to catch regressions. .
 - 🤝 **Encourage Contributions:** Welcome developers, designers, and users to contribute their ideas and expertise.
 - 🛠️ **Implement CI/CD:** Streamline development workflows by implementing continuous integration/continuous deployment (CI/CD) pipelines. Automate testing, building, and deployment processes to ensure code quality and speed up delivery.
 - 🎉 **Continuous Improvement:** Gather feedback and iterate to make the extension even better over time.
-- 🧪 **Add Tests:** Help ensure the stability and reliability of the extension by adding tests. Cover critical functionalities with unit tests and integration tests to catch regressions.
 ## Contribution:
 - 🤝 Join the Community: Your contributions are valuable! Whether you're a developer, designer, or user, we welcome your input. Share your ideas, report issues, or contribute code to help improve the extension for everyone.
 - 💡 Ideas and Feedback: Have a suggestion or feedback? Feel free to open an issue on GitHub or join the discussion on our community forums.
 - 🐛 Bug Reports: Encountered a bug? Please report it on GitHub, so we can address it promptly.
-- 💻 Code Contributions: Interested in contributing code? Fork the repository, make your changes, and submit a pull request. Don't forget to follow our contribution guidelines!
+- 💻 Code Contributions: Interested in contributing code? Fork the repository, make your changes, and submit a pull request.
