@@ -16,19 +16,3 @@
     background: #313e48;
 }
 
-.request-details {
-    padding: 10px 20px;
-}
-
-.request-details__item {
-    margin: 10px 0;
-}
-
-.request-details__item__title {
-    margin-top: 10px;
-}
-
-.request-details__item__content {
-    padding-left: 40px;
-}
-
