@@ -72,7 +72,7 @@ export const getCallInfo = (
   response: JsonRpcResponse,
 ) => {
   if (!contractData || !contractData.abiFound) {
-    return { decoded: false };
+    return { decoded: false, abiFound: false };
   }
 
   const { abi, name } = contractData;

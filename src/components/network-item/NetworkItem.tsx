@@ -94,8 +94,7 @@ const NetworkItem: FC<Props> = ({ url, request, response }) => {
         title: 'eth_blockNumber',
         content: <EthBlockNumber response={response[index]} />,
       };
-    }
-    if (request.method === 'eth_chainId') {
+    } else if (request.method === 'eth_chainId') {
       return {
         title: 'eth_chainId',
         content: chainId,
