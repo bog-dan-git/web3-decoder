@@ -1,46 +1,41 @@
-# Getting Started with Create React App
+# Web3 Decode Extension
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The Web3 Decode Extension is your go-to tool for gaining insights into Web3 requests within your browser's developer tools. Whether you're interacting with Ethereum smart contracts, making transactions, or exploring decentralized applications, this extension provides a seamless way to monitor and decode Web3 activity.
+## TL;DR
+It kind of looks like this
 
-## Available Scripts
+[![screenshot1.png](https://i.postimg.cc/VsCyKcJS/screenshot1.png)](https://postimg.cc/3WYbwVC7)
 
-In the project directory, you can run:
+[![screenshot2.png](https://i.postimg.cc/44zLK4K1/screenshot2.png)](https://postimg.cc/8szB9SmF)
 
-### `yarn start`
+## Key Features:
+- 🔍 **Comprehensive Monitoring**: Track all Web3 requests made by the application in real-time.
+- 📊 **Detailed Analysis:** Dive deep into request details, including method calls, parameters, and response data.
+- 🛠️ **User-friendly Interface:** Enjoy a clean and intuitive interface seamlessly integrated into your browser's developer tools.
+- ⚙️ **Easy Setup:** Simply add the extension to your browser to start monitoring Web3 requests instantly.
+- 🚀 **Optimize Performance:** Identify bottlenecks and optimize your application's Web3 interactions for improved performance.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Getting Started:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- ⬇️ **Installation**: Add the extension to your browser from the Chrome Web Store (currently WIP) or by downloading the source code.
+- 🔄 **Activation**: Open the developer tools in your browser and navigate to the Web3 Requests tab to start monitoring.
+- 🔍 **Exploration**: Dive deep into Web3 requests, decode data, and optimize your application's interactions with the blockchain.
 
-### `yarn test`
+## The adventure ahead:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- 🛠️ **Refactor Codebase:** Improve maintainability and scalability for smoother development.
+- 🎨 **Enhance UI/UX Design:** Create a more intuitive and visually appealing user experience.
+- 🌐 **Cross-Browser Compatibility:** Rewrite extension using Web Extensions API for broader browser support.
+- ⚡ **Performance Optimizations:** Speed up data processing and rendering for faster analysis.
+- 💼 **Implement Wallet Injection:** Track wallet-related Web3 calls for comprehensive monitoring.
+- 📈 **Expand Tracking Capabilities:** Include eth_sendTransaction, eth_estimateGas, and more for detailed insights.
+- 🔒 **Ensure Security:** Safeguard sensitive wallet data with robust security measures.
+- 🤝 **Encourage Contributions:** Welcome developers, designers, and users to contribute their ideas and expertise.
+- 🛠️ **Implement CI/CD:** Streamline development workflows by implementing continuous integration/continuous deployment (CI/CD) pipelines. Automate testing, building, and deployment processes to ensure code quality and speed up delivery.
+- 🎉 **Continuous Improvement:** Gather feedback and iterate to make the extension even better over time.
+- 🧪 **Add Tests:** Help ensure the stability and reliability of the extension by adding tests. Cover critical functionalities with unit tests and integration tests to catch regressions.
+## Contribution:
+- 🤝 Join the Community: Your contributions are valuable! Whether you're a developer, designer, or user, we welcome your input. Share your ideas, report issues, or contribute code to help improve the extension for everyone.
+- 💡 Ideas and Feedback: Have a suggestion or feedback? Feel free to open an issue on GitHub or join the discussion on our community forums.
+- 🐛 Bug Reports: Encountered a bug? Please report it on GitHub, so we can address it promptly.
+- 💻 Code Contributions: Interested in contributing code? Fork the repository, make your changes, and submit a pull request. Don't forget to follow our contribution guidelines!
