@@ -106,6 +106,7 @@ export const getCallInfo = (
     functionCall: `${parsedTransaction?.name}(${displayParams})`,
     functionResult: decodedFunctionResult,
     decoded: true,
+    abiFound: true,
   };
 };
 
@@ -132,7 +133,7 @@ export const getEthCallInfo = (
 
   return {
     swissknifeUrl,
-    abiFound: contractData.abiFound,
+    abiFound: callInfo.abiFound,
     name: callInfo?.name,
     functionSignature: callInfo?.functionSignature,
     functionArgs: callInfo?.functionArgs,
