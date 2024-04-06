@@ -1,8 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
+
 import NetworkItem from './components/network-item/NetworkItem';
-import './App.css';
 import OnChainDataProvider from './components/OnChainDataProvider';
+
 import { JsonRpcRequest, JsonRpcResponse } from './interfaces';
+
+import './App.css';
 
 const isSupportedRequest = (request: JsonRpcRequest | JsonRpcRequest[]) =>
   Array.isArray(request)
@@ -57,7 +60,7 @@ function App() {
     [],
   );
 
-  useEffect(() => {
+  const addChromeListener = useCallback(() => {
     chrome.devtools.network.onRequestFinished.addListener(
       handleRequestCallback,
     );
@@ -67,7 +70,28 @@ function App() {
         handleRequestCallback,
       );
     };
-  }, [handleRequestCallback]);
+  }, []);
+
+  const addBrowserListener = useCallback(() => {
+    const listener = (request: browser.devtools.network.Request) =>
+      handleRequestCallback(
+        request as unknown as chrome.devtools.network.Request,
+      );
+
+    browser.devtools.network.onRequestFinished.addListener(listener);
+
+    return () => {
+      browser.devtools.network.onRequestFinished.removeListener(listener);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (browser && browser.devtools) {
+      return addBrowserListener();
+    }
+
+    return addChromeListener();
+  }, [addBrowserListener, addChromeListener]);
 
   return (
     <OnChainDataProvider>
