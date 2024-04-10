@@ -4,6 +4,7 @@ import { ContractData, OnChainDataState } from '../contexts';
 import { client } from '../client';
 import { isFulfilled } from '../common';
 import { isEthCall } from './network-item.service';
+import { bigintsToStrings } from './common';
 
 export interface EthCallInfo {
   swissknifeUrl: string;
@@ -12,9 +13,9 @@ export interface EthCallInfo {
   contractAddress: string;
   name?: string;
   functionSignature?: string;
-  functionArgs?: string;
+  functionArgs?: object;
   functionCall?: string;
-  functionResult?: string;
+  functionResult?: string | object;
   functionResultOk?: boolean;
 }
 
@@ -43,25 +44,35 @@ const getFunctionSignature = (
   return `${name}(${inputsFormatted}) external ${stateMutability} returns (${outputsFormatted})`;
 };
 
+const toObjectOrArray = (
+  result: Result,
+): Record<string, unknown> | Array<unknown> => {
+  try {
+    return result.toObject();
+  } catch (e) {
+    return Array.isArray(result)
+      ? result.map((x) => toObjectOrArray(x))
+      : result;
+  }
+};
+
 const decodeFunctionResult = (
   contract: Interface,
   response: JsonRpcResponse,
   transactionDescription: TransactionDescription,
 ) => {
   try {
-    const decoded = contract.decodeFunctionResult(
+    const result = contract.decodeFunctionResult(
       transactionDescription.fragment,
       response.result,
     );
 
-    const stringified = JSON.stringify(
-      parseFunctionArgsToArray(decoded)[0],
-      null,
-      2,
-    );
-
-    return { ok: true, data: stringified };
+    return {
+      ok: true,
+      data: bigintsToStrings(toObjectOrArray(result)),
+    };
   } catch (e) {
+    console.error(e);
     return { ok: false, data: response.error?.message ?? 'Unknown error' };
   }
 };
@@ -92,6 +103,9 @@ export const getCallInfo = (
 
   const parsedArgs = parseFunctionArgsToArray(parsedTransaction.args);
   const displayParams = argsToDisplayParams(parsedArgs);
+
+  const functionArgs = toObjectOrArray(parsedTransaction.args);
+
   const decodedFunctionResult = decodeFunctionResult(
     contract,
     response,
@@ -102,7 +116,7 @@ export const getCallInfo = (
   return {
     name,
     functionSignature,
-    functionArgs: JSON.stringify(parsedArgs, null, 2),
+    functionArgs: bigintsToStrings(functionArgs),
     functionCall: `${parsedTransaction?.name}(${displayParams})`,
     functionResult: decodedFunctionResult,
     decoded: true,

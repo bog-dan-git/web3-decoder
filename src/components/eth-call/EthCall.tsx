@@ -1,6 +1,8 @@
 import { FC, useEffect, useState } from 'react';
 
-import ExpandableSection from '../expandable-section/ExpandableSection';
+import SolidityCode from '../solidity-code/SolidityCode';
+import JsonViewer from '../json-viewer/JsonViewer';
+
 import { EthCallRequest, JsonRpcResponse } from '../../interfaces';
 import { EthCallInfo, getEthCallInfo } from '../../services';
 import { ContractData } from '../../contexts';
@@ -33,9 +35,9 @@ const EthCall: FC<Props> = (props) => {
   return !callInfo ? (
     <div>Loading...</div>
   ) : (
-    <div>
+    <div className="grid-container">
+      <div>URL: </div>
       <div>
-        URL:{' '}
         <a
           className="request-details__link"
           target="_blank"
@@ -45,39 +47,26 @@ const EthCall: FC<Props> = (props) => {
           Swissknife
         </a>
       </div>
-      <div>Contract address: {callInfo.contractAddress}</div>
+      <div>Contract address: </div>
+      <div>{callInfo.contractAddress}</div>
       {callInfo.abiFound && callInfo.decoded && (
         <>
-          <div>Contract Name: {callInfo.name}</div>
-          <div>Function Signature: {callInfo.functionSignature}</div>
-          <div className="expandable-wrapper">
-            <span>Function Call: </span>
-            {callInfo.functionCall && (
-              <ExpandableSection
-                content={callInfo.functionCall}
-              ></ExpandableSection>
-            )}
-          </div>
-          <div className="expandable-wrapper">
-            <span>Function Args: </span>
-            {callInfo.functionArgs && (
-              <ExpandableSection
-                content={callInfo.functionArgs}
-              ></ExpandableSection>
-            )}
-          </div>
-          <div
-            className={
-              'expandable-wrapper' + (callInfo.functionResultOk ? '' : ' error')
-            }
-          >
-            <span>Function Result: </span>
-            {callInfo.functionResult && (
-              <ExpandableSection
-                content={callInfo.functionResult}
-              ></ExpandableSection>
-            )}
-          </div>
+          <div>Contract Name: </div>
+          <SolidityCode>{`contract ${callInfo.name}`}</SolidityCode>
+          <div>Function Signature: </div>
+          <SolidityCode>{callInfo.functionSignature!}</SolidityCode>
+          <div>Function Call: </div>
+          {callInfo.functionCall && (
+            <SolidityCode>{callInfo.functionCall}</SolidityCode>
+          )}
+          <div>Function args: </div>
+          <JsonViewer object={callInfo.functionArgs!} />
+          <div>Function result: </div>
+          {callInfo.functionResultOk ? (
+            <JsonViewer object={callInfo.functionResult as object} />
+          ) : (
+            <div className="error">{callInfo.functionResult!.toString()}</div>
+          )}
         </>
       )}
       {!callInfo.abiFound && <div className="error">ABI not found</div>}
