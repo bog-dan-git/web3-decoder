@@ -18,7 +18,7 @@ It kind of looks like this
 
 ## Getting Started:
 
-- ⬇️ **Installation**: Add the extension to your browser from the Chrome Web Store (currently WIP) or by downloading the source code.
+- ⬇️ **Installation**: Add the extension to your browser from the [Chrome Web Store](https://chromewebstore.google.com/detail/web3-decode-extension/igkiklhabjbopfcaddnlkaohjgampffl), Firefox Browser Add-Ons (WIP), or by downloading the source code.
 - 🔄 **Activation**: Open the developer tools in your browser and navigate to the Web3 Requests tab to start monitoring.
 - 🔍 **Exploration**: Dive deep into Web3 requests, decode data, and optimize your application's interactions with the blockchain.
 
