@@ -127,10 +127,8 @@ export const buildSwissKnifeUrl = (
   calldata: string,
   contractAddress: string,
   chainId?: number,
-) => {
-  const url = `https://calldata.swiss-knife.xyz/decoder?calldata=${calldata}&address=${contractAddress}${chainId ? `&chainId=${chainId}` : ''}`;
-  return url;
-};
+) =>
+  `https://calldata.swiss-knife.xyz/decoder?calldata=${calldata}&address=${contractAddress}${chainId ? `&chainId=${chainId}` : ''}`;
 
 export const getEthCallInfo = (
   contractData: ContractData,
