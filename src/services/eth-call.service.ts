@@ -72,7 +72,6 @@ const decodeFunctionResult = (
       data: bigintsToStrings(toObjectOrArray(result)),
     };
   } catch (e) {
-    console.error(e);
     return { ok: false, data: response.error?.message ?? 'Unknown error' };
   }
 };
