@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Web3 Decode Extension",
-  "version": "0.0.0.1",
+  "version": "0.0.2",
   "description": "Decode web3 transactions with ease",
   "permissions": [],
   "devtools_page": "devtools.html",
