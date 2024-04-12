@@ -5,3 +5,9 @@
 .error {
     color: #ff1b1b;
 }
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 10px 20px;
+}

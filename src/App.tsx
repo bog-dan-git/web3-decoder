@@ -70,7 +70,7 @@ function App() {
         handleRequestCallback,
       );
     };
-  }, []);
+  }, [handleRequestCallback]);
 
   const addBrowserListener = useCallback(() => {
     const listener = (request: browser.devtools.network.Request) =>
@@ -83,10 +83,10 @@ function App() {
     return () => {
       browser.devtools.network.onRequestFinished.removeListener(listener);
     };
-  }, []);
+  }, [handleRequestCallback]);
 
   useEffect(() => {
-    if (browser && browser.devtools) {
+    if (window.browser && window.browser.devtools) {
       return addBrowserListener();
     }
 
