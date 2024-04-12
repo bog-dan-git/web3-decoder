@@ -7,5 +7,10 @@
   "devtools_page": "devtools.html",
   "icons": {
     "512": "icon.png"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "@web3-decode-extension"
+    }
   }
 }
