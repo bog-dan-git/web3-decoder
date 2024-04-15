@@ -4,10 +4,11 @@ The Web3 Decode Extension is your go-to tool for gaining insights into Web3 requ
 ## TL;DR
 It kind of looks like this
 
-[![screenshot1.png](https://i.postimg.cc/VsCyKcJS/screenshot1.png)](https://postimg.cc/3WYbwVC7)
+[![screenshot-1.png](https://i.postimg.cc/L4rmD1j9/screenshot-1.png)](https://postimg.cc/rzN6Fzh3)
 
-[![screenshot2.png](https://i.postimg.cc/44zLK4K1/screenshot2.png)](https://postimg.cc/8szB9SmF)
+[![screenshot-2.png](https://i.postimg.cc/7hSdmfyh/screenshot-2.png)](https://postimg.cc/30JtwrNQ)
 
+[![screenshot-3.png](https://i.postimg.cc/bwZMBCP4/screenshot-3.png)](https://postimg.cc/NKwpyx5x)
 ## Key Features:
 - 🔍 **Comprehensive Monitoring**: Track all Web3 requests made by the application in real-time.
 - 📊 **Detailed Analysis:** Dive deep into request details, including method calls, parameters, and response data.
@@ -17,7 +18,7 @@ It kind of looks like this
 
 ## Getting Started:
 
-- ⬇️ **Installation**: Add the extension to your browser from the Chrome Web Store (currently WIP) or by downloading the source code.
+- ⬇️ **Installation**: Add the extension to your browser from the [Chrome Web Store](https://chromewebstore.google.com/detail/web3-decode-extension/igkiklhabjbopfcaddnlkaohjgampffl), [Firefox Browser Add-Ons](https://addons.mozilla.org/en-GB/firefox/addon/web3-decode-extension/), or by downloading the source code.
 - 🔄 **Activation**: Open the developer tools in your browser and navigate to the Web3 Requests tab to start monitoring.
 - 🔍 **Exploration**: Dive deep into Web3 requests, decode data, and optimize your application's interactions with the blockchain.
 
@@ -25,7 +26,6 @@ It kind of looks like this
 
 - 🛠️ **Refactor Codebase:** Improve maintainability and scalability for smoother development.
 - 🎨 **Enhance UI/UX Design:** Create a more intuitive and visually appealing user experience.
-- 🌐 **Cross-Browser Compatibility:** Rewrite extension using Web Extensions API for broader browser support.
 - ⚡ **Performance Optimizations:** Speed up data processing and rendering for faster analysis.
 - 💼 **Implement Wallet Injection:** Track wallet-related Web3 calls for comprehensive monitoring.
 - 📈 **Expand Tracking Capabilities:** Include eth_sendTransaction, eth_estimateGas, and more for detailed insights
